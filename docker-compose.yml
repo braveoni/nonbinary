@@ -1,28 +1,23 @@
 version: '3'
 
 services:
-  web:
+  frontend:
+    container_name: front
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "1337:1337"
+    command: "npm run dev"
     restart: always
-    ports:
-      - "5000:5000"
-    networks:
-      - web_nw
-      - nginx_nw
-  nginx:
-    container_name: nginx
-    build:
-      context: docker/nginx/
-      dockerfile: Dockerfile
-    ports:
-      - "800:80"
-    networks:
-      - nginx_nw
 
-networks:
-  web_nw:
-    external: true
-  nginx_nw:
-    external: true
+#  nginx:
+#    container_name: nginx
+#    build:
+#      context: docker/nginx/
+#      dockerfile: Dockerfile
+#    ports:
+#      - "800:80"
