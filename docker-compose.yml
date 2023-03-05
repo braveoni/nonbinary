@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   frontend:
@@ -10,9 +10,21 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - "1337:1337"
+      - "127.0.0.1:1337:1337"
     command: "npm run dev"
     restart: always
+
+#  backend:
+#    container_name: back
+#    build:
+#      context: .
+#      dockerfile: ./docker/backend/Dockerfile
+#    volumes:
+#      - ./backend:/backend
+#    restart: always
+#    ports:
+#      - "8000:8000"
+#    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
 #  nginx:
 #    container_name: nginx
